@@ -1,0 +1,47 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../source/vue-next/packages/vue/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id='app'></div>
+    <script>
+      const {createApp,reactive,watchEffect,computed} =Vue
+        const App = {
+          // render 返回vom
+            template: `
+                <button @click='click'>{{state.count}}->变成双倍{{double}}</button>
+            `,
+            setup() {
+              // 响应式 ，用的Proxy取代 define
+                const state = reactive({
+                  count:0
+                  
+                })
+                function click(){
+                  state.count +=1
+                }
+                watchEffect(()=>{
+                  console.log('数据变了'+state.count)
+                })
+                const double = computed (() => state.count * 2 )
+                return {
+                  state, 
+                  click,
+                  double
+                }
+            },
+           
+
+        }
+        let vm = Vue.createApp(App).mount('#app')
+        // console.log(vm)
+    </script>
+</body>
+
+</html>

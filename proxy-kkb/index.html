@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <button id="btn"></button>
+    <!-- proxy 实现响应式 -->
+    <script src="./kkb-vue3.js"></script>
+    <script>
+      const root = document.getElementById('app')
+      const btn = document.getElementById('btn')
+      // 相当于数据代理
+      const obj =reactive({
+        name:'kkb',
+        age:1
+      })
+
+      let double =computed(()=>obj.age*2)
+      effect(()=>{
+        // 数据变化
+        console.log('数据变化',obj.age)
+        //
+        root.innerHTML=`<h1>${obj.name}今年${obj.age}岁了，乘以2是${double.value}</h1>`
+      })
+
+      btn.addEventListener('click',()=>{
+        obj.age=1
+      },false)
+    </script>
+</body>
+</html>
